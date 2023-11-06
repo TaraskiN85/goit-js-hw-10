@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 10</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <select class="breed-select"></select>
+    <select class="breed-select is-hidden" id="breed-select" ></select>
     <p class="loader">Loading data, please wait...</p>
-    <p class="error">Oops! Something went wrong! Try reloading the page!</p>
+    <p class="error is-hidden">Oops! Something went wrong! Try reloading the page!</p>
     <div class="cat-info"></div>
 
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
     <script src="index.js" type="module"></script>
   </body>
 </html>

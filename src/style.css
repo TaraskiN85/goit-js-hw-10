@@ -1,0 +1,25 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.cat-title {
+  text-align: center;
+}
+
+.description-container {
+  display: flex;
+  gap: 24px;
+}
+
+.cat-image {
+  max-width: calc((100% - 24px) / 2);
+}
+
+.cat-description {
+  font-weight: 400;
+  font-size: 1.6rem;
+}

@@ -1,14 +1,13 @@
 import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 axios.defaults.headers.common['x-api-key'] =
   'live_BKttN3tIf9UHADmNzJ9kruccj2AlKOtRaSSXh0D93uTuzTPjkMU0n39y4nYVhmuI';
 const catSelect = document.querySelector('.breed-select');
-const loadingMessage = document.querySelector('.loader');
-const errorMessage = document.querySelector('.error');
+const loader = document.querySelector('.loader');
 const catInfo = document.querySelector('.cat-info');
 
-let options, catData, selectedCatInfo;
-// console.log(catSelect.nextElementSibling.textContent);
+let options, catData;
 
 const fetchBreeds = () => {
   axios
@@ -21,17 +20,19 @@ const fetchBreeds = () => {
         })
         .join('');
       catSelect.innerHTML = options;
-      // console.log(catSelect);
-      loadingMessage.classList.add('is-hidden');
+      loader.classList.remove('loading');
       catSelect.classList.remove('is-hidden');
       new SlimSelect({
         select: '#breed-select',
       });
     })
     .catch(() => {
-      console.log('first');
-      errorMessage.classList.remove('is-hidden');
-      loadingMessage.classList.add('is-hidden');
+      Notify.failure(`Oops! Something went wrong! Try reloading the page!`, {
+        timeout: 1500,
+        position: 'center-top',
+        distance: '100px',
+      });
+      loader.classList.remove('loading');
     });
 };
 
@@ -39,27 +40,24 @@ const catMarkup = cat => {
   const { name, description, alt_names } = cat.breeds[0];
   return `<h1 class='cat-title' >${name}</h1>
           <div class='description-container'>
-            <img class='cat-image' src=${cat.url} alt="${alt_names}" />
             <p class='cat-description' >${description}</p>
+            <img class='cat-image' src=${cat.url} alt="${alt_names}" />
           </div>`;
 };
 
 const fetchCatByBreed = breedId => {
   const breedUrl = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
-  loadingMessage.classList.remove('is-hidden');
+  loader.classList.add('loading');
 
   axios
     .get(breedUrl)
     .then(response => {
-      loadingMessage.classList.add('is-hidden');
+      loader.classList.remove('loading');
       catSelect.classList.remove('is-hidden');
-      const selectedCatInfo = response.data[0];
-      console.log(selectedCatInfo);
-      catInfo.innerHTML = catMarkup(selectedCatInfo);
+      catInfo.innerHTML = catMarkup(response.data[0]);
     })
     .catch(() => {
-      loadingMessage.classList.add('is-hidden');
-      errorMessage.classList.remove('is-hidden');
+      loader.classList.remove('loading');
     });
 };
 
@@ -68,9 +66,12 @@ const onCatSelect = event => {
   const selectedCat = catData.find(cat => cat.name === event.target.value);
   if (selectedCat) {
     fetchCatByBreed(selectedCat.id);
-    errorMessage.classList.add('is-hidden');
   } else {
-    errorMessage.classList.remove('is-hidden');
+    Notify.failure(`Oops! Something went wrong! Try reloading the page!`, {
+      timeout: 1500,
+      position: 'center-top',
+      distance: '100px',
+    });
   }
 };
 

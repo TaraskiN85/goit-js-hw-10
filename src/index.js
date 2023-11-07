@@ -1,4 +1,5 @@
 import axios from 'axios';
+import SlimSelect from 'slim-select';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchCatByBreed, fetchBreeds } from './cat-api';
 import showError from './helper';

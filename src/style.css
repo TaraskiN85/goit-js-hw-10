@@ -25,6 +25,7 @@ body {
 
 .cat-image {
   max-width: calc((100% - 24px) / 2);
+  height: auto;
 }
 
 .cat-description {

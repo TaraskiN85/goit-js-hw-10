@@ -1,8 +1,8 @@
 import axios from 'axios';
 import SlimSelect from 'slim-select';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchCatByBreed, fetchBreeds } from './cat-api';
 import showError from './helper';
+import 'slim-select/dist/slimselect.css';
 
 axios.defaults.headers.common['x-api-key'] =
   'live_BKttN3tIf9UHADmNzJ9kruccj2AlKOtRaSSXh0D93uTuzTPjkMU0n39y4nYVhmuI';
